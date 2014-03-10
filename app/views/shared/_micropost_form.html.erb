@@ -1,0 +1,20 @@
+<%= form_for(@micropost) do |f| %>
+   <%= render 'shared/error_messages', object: f.object %>
+   <% controlador = Micropost.thing(controller.controller_name) %>
+   <% case controlador %>
+   <% when 1 %>
+     <% thing_id = 0 %>
+     <div class="field">
+       <%= f.text_field :addressees, placeholder: "Nics de destinatarios..." %>
+     </div>
+   <% when 3 %>
+     <% thing_id = Article.find(params[:id]).id %>
+   <% end %>
+   <div class="field">
+      <%= f.text_area :content, placeholder: "Escribe aquí tu mensaje...", class: "postext" %>
+   </div>
+   <%= f.hidden_field :thing, :value => controlador %>
+   <%= f.hidden_field :thing_id, :value => thing_id %>
+   <br/>
+   <%= f.submit "Publicar", class: "btn btn-large btn-success" %>
+<% end %>

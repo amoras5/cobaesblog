@@ -1,0 +1,30 @@
+<% if signed_in? %>
+  <div class="row">
+    <aside class="span4">
+      <section>
+        <%= render 'shared/user_info' %>
+      </section>
+      <section>
+        <%= render 'shared/stats' %>
+      </section>
+      <% unless current_user.ambito == 1 %>
+        <section>
+          <%= render 'shared/micropost_form' %>
+        </section>
+      <% end %>
+    </aside>
+    <div class="span8" id="articlesfeed">
+      <h3>Avisos:</h3>
+      <%= render 'shared/feed' %>
+    </div>
+  </div>
+<% else %>
+  <div class="center hero-unit">
+    <h1>Bienvenido a <span class="cbblog">Cb-blog</span></h1>
+    <h2>
+      Página inical del blog para el personal de Cobaes.
+    </h2>
+    <%= link_to "Iniciar Sesión", signin_path, class: "btn btn-large btn-success" %>
+    <%-#<p><small>si no eres usuario... <%= link_to "¡Regístrate ahora!", signup_path, id: "liga" % ></small></p> -%>
+  </div>
+<% end %>

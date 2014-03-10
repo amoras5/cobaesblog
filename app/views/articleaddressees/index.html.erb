@@ -1,0 +1,27 @@
+<h1>Listing articleaddressees</h1>
+
+<table>
+  <tr>
+    <th>Article</th>
+    <th>User</th>
+    <th>Seen</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @articleaddressees.each do |articleaddressee| %>
+  <tr>
+    <td><%= articleaddressee.article_id %></td>
+    <td><%= articleaddressee.user_id %></td>
+    <td><%= articleaddressee.seen %></td>
+    <td><%= link_to 'Show', articleaddressee %></td>
+    <td><%= link_to 'Edit', edit_articleaddressee_path(articleaddressee) %></td>
+    <td><%= link_to 'Destroy', articleaddressee, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Articleaddressee', new_articleaddressee_path %>

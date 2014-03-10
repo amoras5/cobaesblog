@@ -1,0 +1,10 @@
+<% provide(:title, "Editar Usuario") %>
+<h1>Actualiza tu perfil</h1><br>
+<div class="row">
+  <div class="span6 offset2 form-horizontal">
+    <%= render 'users/userform' %>
+    <div class="span6 offset2 form-horizontal">
+      <br><%= image_tag avatarURL(@user, 'thumb') %>
+    </div>
+  </div>
+</div>

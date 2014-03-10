@@ -1,0 +1,11 @@
+<li>
+  <span class="content">
+  	<%= micropost.content %>
+  </span>
+  <span class="timestamp">
+    Publicado hace <%= time_ago_in_words_art(micropost.created_at) %>.
+  </span>
+  <% if current_user?(micropost.user) || current_user.admin? %>
+    <%= link_to " >> eliminar.", micropost, method: :delete, confirm: "¿estás seguro?", title: micropost.content %>
+  <% end %>
+</li>

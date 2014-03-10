@@ -1,0 +1,2 @@
+module MicropostaddresseesHelper
+end

@@ -1,0 +1,63 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+en:
+  hello: "Hello world"
+  activerecord:
+    errors:
+      messages:
+        confirmation: "( Fallo la confimacion de contrasena. )"
+        taken: "( El email ya esta registrado por otro usuario. )"
+      models:
+        user:
+          attributes:
+            name:
+              blank: ( Introduzca su nombre de usuario. )
+            email:
+              blank: ( Introduzca su email. )
+              invalid: ( El Email no es valido. )
+            password:
+              too_short: ( Contrasena debe ser minimo de 6 digitos. )
+              blank: ( Introduzca su contrasena. )
+            password_confirmation:
+              blank: ( Confirme su contrasena. )
+  datetime:
+    distance_in_words_art:
+      half_a_minute: 'medio minuto'
+      less_than_x_seconds:
+        zero: 'menos de un segundo'
+        one: 'menos de un segundo'
+        other: 'menos de %{count} segundos'
+      x_seconds:
+        one: 'un segundo'
+        other: '%{count} segundos'
+      less_than_x_minutes:
+        zero: 'menos de un minuto'
+        one: 'un minuto'
+        other: '%{count} minutos'
+      x_minutes:
+        one: 'un minuto'
+        other: '%{count} minutos'
+      about_x_hours:
+        one: 'una hora'
+        other: '%{count} horas'
+      x_days:
+        one: 'un día'
+        other: '%{count} días'
+      about_x_months:
+        one: 'cerca de un mes'
+        other: 'cerca de %{count} meses'
+      x_months:
+        one: 'un mes'
+        other: '%{count} meses'
+      about_x_years:
+        one: 'cerca de un año'
+        other: 'cerca de %{count} años'
+      over_x_years:
+        one: 'más de un año'
+        other: 'más de %{count} años'
+      almost_x_years:
+        one: 'casi un año'
+        other: 'casi %{count} años'
+    prompts:
+      second: "segundos"

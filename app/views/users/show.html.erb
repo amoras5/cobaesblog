@@ -1,0 +1,41 @@
+<% provide(:title, @user.name) %>
+<div class="row">
+  <aside class="span4">
+    <section>
+	  <h1>
+	    <%= image_tag avatarURL(@user, 'thumb') %>
+        <%= @user.name %>
+	  </h1>
+	</section>
+	<section>
+	  <%= render 'shared/stats' %>
+	</section>
+  </aside>
+  <div class="span8">
+    <%= render 'follow_form' if signed_in? & current_user.admin? %>
+	<% if @feed_items.any? %>
+	  <span>
+	    <h3>Avisos (<%= @feed_items.count %>)</h3>
+	  </span>
+	  <%= will_paginate @microposts %>
+	  <span>
+	    <ol class="microposts">
+		  <%= render 'shared/feed' %>
+		</ol>
+	  </span>
+	  <%= will_paginate @microposts %>
+	<% end %>
+	<% if @articles.any? %>
+	  <span>
+	    <h3>Artículos (<%= @articles.count %>)</h3>
+	  </span>
+	  <%= will_paginate @articles %>
+	  <span>
+		<ol class="articles">
+	      <%= render 'articles/articlefeed' %>
+		</ol>
+	  </span>
+	  <%= will_paginate @articles %>
+	<% end %>
+  </div>
+</div>

@@ -1,0 +1,82 @@
+<% @feed_items.each do |feed_item| %>
+  <li id="<%= feed_item.id %>">
+  	<%= image_tag avatarURL(feed_item.user, 'minithumb') %>
+	<div class="message">
+	  <span class="user">
+	    <%= link_to feed_item.user.name, feed_item.user %>
+	  </span>
+	  <span class="content">
+	    <%= feed_item.content %>
+	  </span>
+	</div>
+	<div class="timestamp">
+	  <br \>Publicado hace <%= time_ago_in_words_art(feed_item.created_at) %>.
+	  <% tabla = lista_usuarios(feed_item.id, 'micropost') %>
+	  <% if current_user?(feed_item.user) %>
+	    <%= link_to " <eliminar>", feed_item, method: :delete, confirm: "estás seguro?" %>
+	    <% if (controller.controller_name != "articles") %>
+	      <span class="enviado_a" id="<%= feed_item.id %>">
+	  	    <a href="javascript:void(0)" rel="tooltip" data-placement="top" data-html="true" data-trigger="click" data-target="#myModal" data-toggle="modal" title="<%= tabla %>">| enviado a:</a>
+	      </span>
+	    <% end %>
+	  <% else %>
+	    <% if (controller.controller_name != "articles") %>
+	      <span class="enviado_a" id="<%= feed_item.id %>">
+	  	    <a href="javascript:void(0)" rel="tooltip" data-placement="top" data-html="true" data-trigger="click" data-target="#myModal" data-toggle="modal" title="<%= tabla %>">| enviado a:</a>
+	      </span>
+		  <!-- Ventana Modal -->
+			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			  <div class="modal-dialog">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			        <h4 class="modal-title" id="myModalLabel">
+			          Lista de Usuarios:
+			        </h4>
+			      </div>
+			      <div class="modal-body" id="aver">
+			      	<!-- Aquí se inserta el contenido de tabla con javascript -->
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-success" data-dismiss="modal">Cerrar</button>
+			      </div>
+			    </div><!-- /.modal-content -->
+			  </div><!-- /.modal-dialog -->
+			</div><!-- /.modal -->
+	      <!-- Fin de Ventana Modal -->
+	  	  <% if not (Micropostaddressee.where("micropost_id = #{feed_item.id} AND user_id = #{current_user.id}").first.seen) %>
+	  	  	<% reg_id = Micropostaddressee.where("micropost_id = #{feed_item.id} AND user_id = #{current_user.id}").first.id %>
+	        <%= link_to " | pendiente", micropostaddressee_path(:id => reg_id, action: "update"), :method => :put, style: "color: #FF6666;", class: "pendiente", id: "#{feed_item.id}", remote: true %>
+	      <% end %>
+	    <% end %>
+	  <% end %>
+      <% if ((controller.controller_name == "articles") && (action_name == "show") && (current_user != feed_item.user)) %>
+        <span class="toggle">
+          <a href="javascript:void(0)">| responder</a>
+        </span>
+        <div class="hiddenDiv">
+		  <%= form_for(@micropost, remote: true) do |f| %>
+		    <% thing_id = Article.find(params[:id]).id %>
+		    <div class="field">
+		      <%= f.text_area :content, placeholder: "Escribe aquí tu respuesta..." %>
+		    </div>
+		    <%= f.hidden_field :thing, :value => '3' %>
+		    <%= f.hidden_field :thing_id, :value => thing_id %>
+		    <%= f.hidden_field :parent_post_id, :value => feed_item.id %>
+		    <%= f.hidden_field :parent_post_level, :value => '1' %>
+		    <br/>
+		    <%= f.submit "Publicar", class: "btn" %>
+		  <% end %>
+	    </div>
+	  <% end %>
+	</div>
+  </li>
+  <% unless (action_name == "show" && controller.controller_name == "users") %>
+    <% if Micropost.lev1_replied_comment_to(feed_item).any? %>
+      <% @subfeedlev1_items = Micropost.lev1_replied_comment_to(feed_item) %>
+      <ol class="submicroposts">
+        <%= render partial: 'shared/subfeedlev1_item', collection: @subfeedlev1_items %>
+      </ol>
+    <% end %>
+  <% end %>
+<% end %>

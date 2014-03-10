@@ -1,0 +1,23 @@
+<% provide(:title, "Editar Imagen") %>
+<div class="row">
+<aside class="span4">
+  <h4>Vista Previa:</h4>
+  <div style="width:100px; height:100px; overflow:hidden">
+    <%= image_tag @user.avatar.url(:large), :id => "preview" %>
+  </div>
+  <%= form_for @user do |f| %>
+    <% %w[x y w h].each do |attribute| %>
+      <%= f.hidden_field "crop_#{attribute}" %>
+    <% end %>
+    <br>
+    <div class="control-group">
+      <div class="controls">
+        <%= f.submit "Guardar", class: "btn btn-large btn-success" %>
+      </div>
+    </div>
+  <% end %>
+</aside>
+<div class="span8">
+  <%= image_tag @user.avatar.url(:large), id: "cropbox" %>
+</div>
+</div>

@@ -1,0 +1,18 @@
+<li id="<%= subfeedlev2_item.id %>">
+  <%= image_tag avatarURL(subfeedlev2_item.user, 'minithumb') %>
+  <div class="message">
+  <span class="user">
+    <%= link_to subfeedlev2_item.user.name, subfeedlev2_item.user %>
+  </span>
+  <span class="content">
+    <%= subfeedlev2_item.content %>
+  </span>
+  </div>
+  <span class="timestamp">
+  	Publicado hace <%= time_ago_in_words_art(subfeedlev2_item.created_at) %>.
+    <% if current_user?(subfeedlev2_item.user) %>
+      <%= link_to " <eliminar>", subfeedlev2_item, method: :delete, 
+                  confirm: "estás seguro?" %>
+    <% end %>
+  </span>
+</li>

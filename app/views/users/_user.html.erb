@@ -1,0 +1,7 @@
+<li>
+  <%= image_tag avatarURL(user, 'thumb') %>
+  <%= link_to user.name, user %><span class="nic"> (<%= user.nic %>)</span>
+  <% if current_user.admin? && !current_user?(user) %>
+    <%= link_to " <eliminar>", user, method: :delete, data: { confirm: "Estás seguro?" }, style: 'color: #FF6666;' %>
+  <% end %>
+</li>

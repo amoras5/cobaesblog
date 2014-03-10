@@ -1,0 +1,20 @@
+<% provide(:title, "Contrasena") %>
+<h1>Reingresar Contraseña:</h1>
+<br>
+<div class="row">
+  <div class="span6 offset2 form-horizontal">
+	<%= form_tag password_resets_path :method => :post do %>
+  	<div class="control-group">
+  	  <%= label_tag :email, nil, :class => 'control-label' %>
+  	  <div class="controls">
+  	    <%= text_field_tag :email, params[:email], placeholder: 'email' %>
+      </div>
+    </div>
+    <div class="control-group">
+      <div class="controls">
+        <%= submit_tag "Enviar Email con Instrucciones.", class: "btn btn-large btn-success" %>
+      </div>
+    </div>
+    <% end %>
+  </div>
+</div>

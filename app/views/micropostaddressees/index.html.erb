@@ -1,0 +1,29 @@
+<h1>Listing micropostaddressees</h1>
+
+<table>
+  <tr>
+    <th>Micropost</th>
+    <th>User</th>
+    <th>Seen</th>
+    <th>Hidden</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @micropostaddressees.each do |micropostaddressee| %>
+  <tr>
+    <td><%= micropostaddressee.micropost_id %></td>
+    <td><%= micropostaddressee.user_id %></td>
+    <td><%= micropostaddressee.seen %></td>
+    <td><%= micropostaddressee.hidden %></td>
+    <td><%= link_to 'Show', micropostaddressee %></td>
+    <td><%= link_to 'Edit', edit_micropostaddressee_path(micropostaddressee) %></td>
+    <td><%= link_to 'Destroy', micropostaddressee, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Micropostaddressee', new_micropostaddressee_path %>

@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Micropost:</b>
+  <%= @micropostaddressee.micropost_id %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @micropostaddressee.user_id %>
+</p>
+
+<p>
+  <b>Seen:</b>
+  <%= @micropostaddressee.seen %>
+</p>
+
+<p>
+  <b>Hidden:</b>
+  <%= @micropostaddressee.hidden %>
+</p>
+
+
+<%= link_to 'Edit', edit_micropostaddressee_path(@micropostaddressee) %> |
+<%= link_to 'Back', micropostaddressees_path %>

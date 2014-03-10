@@ -1,0 +1,13 @@
+<% if object.errors.any? %>
+  <div id="error_explanation">
+  	<div class="alert alert-danger span6 offset1">
+  		El formulario contiene errores
+  	</div>
+  	<ul>
+  		<% object.errors.full_messages.each do |msg| %>
+  		  <li class="span6 offset1">* <%= msg %></li>
+  		<% end %>
+      <li>.</li>
+  	</ul>
+  </div>
+<% end %>

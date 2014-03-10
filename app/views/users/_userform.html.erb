@@ -1,0 +1,113 @@
+<%= form_for @user do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+  <% if action_name == "new" %>
+    <div class="control-group">
+      <%= f.label :name, "Nombre", class: 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :name, placeholder: 'nombre' %>
+      </div>
+    </div>
+    <div class="control-group">
+      <%= f.label :nic, "Nic", class: 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :nic, placeholder: 'nombre corto' %>
+      </div>
+    </div>
+    <div class="control-group">
+      <%= f.label :email, class: 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :email, placeholder: 'email' %>
+      </div>
+    </div>
+  <% else %>
+    <div class="control-group">
+      <%= f.label :name, "Nombre", class: 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :name, placeholder: 'nombre', disabled: true %>
+      </div>
+    </div>
+    <div class="control-group">
+      <%= f.label :nic, "Nic", class: 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :nic, placeholder: 'nombre corto', disabled: true %>
+      </div>
+    </div>
+    <div class="control-group">
+      <%= f.label :email, class: 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :email, placeholder: 'email', disabled: true %>
+      </div>
+    </div>
+  <% end %>
+  <div class="control-group">
+    <%= f.label :password, "Contraseña", class: 'control-label' %>
+    <div class="controls">
+      <%= f.password_field :password, placeholder: 'contraseña' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :password_confirmation, "Confirmación", class: 'control-label' %>
+    <div class="controls">
+      <%= f.password_field :password_confirmation, placeholder: 'confirma tu contraseña' %>
+    </div>
+  </div>
+  <% if action_name == "new" %>
+    <hr />
+    <div class="control-group">
+      <%= f.label :zona, "Zona", class: 'control-label' %>
+      <div class="controls">
+        <%= f.collection_select(:zona, LuZona.order("name ASC"), :id, :name) %>
+      </div>
+    </div>
+    <div class="control-group">
+      <%= f.label :ambito, "Ámbito", class: 'control-label' %>
+      <div class="controls">
+        <%= f.collection_select(:ambito, LuAmbito.order("name ASC"), :id, :name) %>
+      </div>
+    </div>
+    <div class="control-group">
+      <%= f.label :modalidad, "Modalidad", class: 'control-label' %>
+      <div class="controls">
+        <%= f.collection_select(:modalidad, LuModalidad.order("name ASC"), :id, :name) %>
+      </div>
+    </div>
+    <div class="control-group">
+      <%= f.label :depto, "Departamento", class: 'control-label' %>
+      <div class="controls">
+        <%= f.collection_select(:depto, LuDepto.order("name ASC"), :id, :name) %>
+      </div>
+    </div>
+    <div class="control-group">
+      <%= f.label :oficina, "Oficina", class: 'control-label' %>
+      <div class="controls">
+        <%= f.collection_select(:oficina, LuOficina.order("name ASC"), :id, :name) %>
+      </div>
+    </div>
+    <hr />
+    <div class="control-group">
+      <%= label_tag :listaseguido, "Usuario Seguido por:", class: 'control-label' %>
+      <div class="controls">
+        <%= text_field_tag :listaseguido, nil, placeholder: 'Nics de usuarios que seguirán a este usuario.' %>
+      </div>
+    </div>
+    <div class="control-group">
+      <%= label_tag :listasiguiendo, "Usuario Siguiendo a:", class: 'control-label' %>
+      <div class="controls">
+        <%= text_field_tag :listasiguiendo, nil, placeholder: 'Nics de usuarios que éste usuario seguirá.' %>
+      </div>
+    </div>
+  <% end %>
+  <hr />
+  <div class="control-group">
+    <%= f.label :avatar, "Imagen de Perfil", class: 'control-label' %>
+    <div class="controls">
+      <%= f.file_field :avatar %>
+    </div>
+  </div>
+  <hr />
+  <div class="control-group">
+    <div class="controls">
+      <%= f.submit "Registrar", class: "btn btn-large btn-success" %>
+    </div>
+  </div> 
+<% end %>

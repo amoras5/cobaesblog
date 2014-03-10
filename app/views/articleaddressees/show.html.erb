@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Article:</b>
+  <%= @articleaddressee.article_id %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @articleaddressee.user_id %>
+</p>
+
+<p>
+  <b>Seen:</b>
+  <%= @articleaddressee.seen %>
+</p>
+
+
+<%= link_to 'Edit', edit_articleaddressee_path(@articleaddressee) %> |
+<%= link_to 'Back', articleaddressees_path %>

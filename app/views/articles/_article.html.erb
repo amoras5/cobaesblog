@@ -1,0 +1,43 @@
+<% @articles.each do |article_item| %>
+	<li>
+	  <%= link_to article_item.title, article_item %> (<%= Micropost.where("thing = '3' AND thing_id = '#{article_item.id}'").count %> comentarios).
+	  <br /><span><%= article_item.abstract %></span>
+	  <span class="timestamp">
+	    Publicado hace <%= time_ago_in_words_art(article_item.created_at) %> por <strong><%= User.find(Article.find(article_item.id).user_id).name %></strong>.
+	  	<% tabla = lista_usuarios(article_item.id, 'article') %>
+	    <span class="enviado_a" id="<%= article_item.id %>">
+	  	   <a href="javascript:void(0)" id="article" rel="tooltip" data-placement="top" data-html="true" data-trigger="click" data-target="#myModal" data-toggle="modal" title="<%= tabla %>">| enviado a:</a>
+	    </span>
+		  <!-- Ventana Modal -->
+			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			  <div class="modal-dialog">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			        <h4 class="modal-title" id="myModalLabel">
+			          Lista de Usuarios:
+			        </h4>
+			      </div>
+			      <div class="modal-body" id="aver">
+			      	<!-- Aquí se inserta el contenido de tabla con javascript -->
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-success" data-dismiss="modal">Cerrar</button>
+			      </div>
+			    </div><!-- /.modal-content -->
+			  </div><!-- /.modal-dialog -->
+			</div><!-- /.modal -->
+	      <!-- Fin de Ventana Modal -->
+	    <% if (current_user.id == article_item.user_id) %>
+	    	<%= link_to " | <eliminar>", article_item, method: :delete, data: { confirm: "Estás seguro?" }, style: 'color: #51a351;' %>
+	  	<% else %>
+	  	  <% if (Articleaddressee.where("article_id = #{article_item.id} AND user_id = #{current_user.id}").first.seen) %>
+	        <a href="javascript:void(0)" style="color: #51a351;" class="enterado"> | visto</a>
+	  	  <% else %>
+	  	    <% reg_id = Articleaddressee.where("article_id = #{article_item.id} AND user_id = #{current_user.id}").first.id %>
+	        <%= link_to " | pendiente", articleaddressee_path(:id => reg_id, action: "update"), :method => :put, style: "color: #FF6666;", class: "pendiente", id: "#{article_item.id}", remote: true %>
+	      <% end %>
+	    <% end %>
+	  </span>
+	</li>
+<% end %>

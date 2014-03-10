@@ -1,0 +1,58 @@
+<header class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <img src="/images/banner1680.jpg" class="center" />
+    <div class="container">
+      <%= link_to "Cb-blog", root_path, id: "logo" %>
+      <nav>
+        <ul class="nav pull-left">
+          <li>
+            <% if signed_in? %>
+            <% micNumber = Micropost.microposts_count(current_user) %>
+            <% artNumber = Article.articles_count(current_user) %>
+            <% newsNumber = micNumber + artNumber %>
+            <% if newsNumber > 0 %>
+              <div class="news">
+                <% if newsNumber < 10 %>
+                  <img src="/images/0<%= newsNumber %>.png" />
+                <% else %>
+                  <img src="/images/10.png" />
+                <% end %>
+                <p>nuevas publicaciones.</p>
+              </div>
+            <% end %><% end %>
+          </li>
+        </ul>
+        <ul class="nav pull-right">
+          <li><%= link_to "Inicio", 	root_path %></li>
+          <li><%= link_to "Ayuda", 	ayuda_path %></li>
+          <% if signed_in? %>
+            <li><%= link_to "Usuarios", users_path %></li>
+            <li id="fat-menu" class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Artículos <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><%= link_to "Artículos", articles_path %></li>
+                <% if current_user.ambito.to_i > 1 %>
+                  <li class="divider"></li>
+                  <li><%= link_to "Crear Artículo", new_article_path %></li>
+                <% end %>
+              </ul>
+            </li>
+            <li id="fat-menu" class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Cuenta <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><%= link_to "Perfil", current_user %></li>
+                <li><%= link_to "Opciones", edit_user_path(current_user) %></li>
+                <li class="divider"></li>
+                <li>
+                  <%= link_to "Cerrar Sesión", signout_path, method: "delete" %>
+                </li>
+              </ul>
+            </li>
+          <% else %>
+            <li><%= link_to "Iniciar Sesión", signin_path %></li>
+          <% end %>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>

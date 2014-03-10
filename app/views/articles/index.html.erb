@@ -1,0 +1,14 @@
+<% provide(:title, 'Artículos') %>
+<h1 style="text-align: right; padding-right: 100px;">Artículos</h1>
+<%= form_tag articles_path, :name => "searchbar", :method => 'get' do %>
+  <div class="input-append">
+  	<%= text_field_tag :search, params[:search], class: 'span2', id: "appendedInputButtons" %>
+    <%= submit_tag "Buscar", :name => nil, class: 'btn' %>
+    <%= button_tag "Quitar búsqueda", :name => nil, :onclick => 'clear_search_bar();', class: 'btn' %>
+  </div>
+<% end %>
+<%= will_paginate @articles, :previous_label => 'Anterior', :next_label => 'Siguiente' %>
+<ul>
+  <%= render 'articles/article' %>
+</ul>
+<%= will_paginate @articles, :previous_label => 'Anterior', :next_label => 'Siguiente' %>

@@ -1,0 +1,34 @@
+<script type="text/javascript" src="/app/assets/javascripts/tinymceinit.js"></script>
+
+<%= form_for (@article) do |f| %>
+   <div class="control-group">
+      <%= f.label :titulo, "Título", class: 'control-label' %>
+      <div class="controls">
+         <%= f.text_field :title, placeholder: 'Escriba un título aquí...' %>
+      </div>
+   </div>
+   <div class="control-group">
+      <%= f.label :titulo, "Destinatarios", class: 'control-label' %>
+      <div class="controls">
+         <%= f.text_field :addressees, placeholder: 'Nics de usuarios destinatarios...' %>
+      </div>
+   </div>
+   <div>
+      <%= f.label :abstract, "Resumen", class: 'control-label' %>
+      <div class="controls">
+         <%= f.text_area :abstract, placeholder: 'Escriba un resumen del artículo...', rows: "3" %>
+      </div>
+   </div>
+   <div>
+      <%= f.label :content, "Contenido", class: 'control-label' %>
+      <div class="controls">
+         <%= f.text_area :content, placeholder: 'contenido', id: "art", rows: "20" %>
+      </div>
+   </div>
+   <br />
+   <div class="control-group">
+      <div class="controls">
+         <%= f.submit "Subir Artículo", class: "btn" %>
+      </div>
+   </div> 
+<% end %>
