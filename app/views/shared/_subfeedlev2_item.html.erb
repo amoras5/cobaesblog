@@ -8,11 +8,36 @@
     <%= subfeedlev2_item.content %>
   </span>
   </div>
-  <span class="timestamp">
+  <div class="timestamp">
   	Publicado hace <%= time_ago_in_words_art(subfeedlev2_item.created_at) %>.
     <% if current_user?(subfeedlev2_item.user) %>
       <%= link_to " <eliminar>", subfeedlev2_item, method: :delete, 
                   confirm: "estás seguro?" %>
     <% end %>
-  </span>
+    <% if (controller.controller_name == "articles" && action_name == "show" && current_user != subfeedlev2_item.user) %>
+      <span class="toggle">
+        <a href="javascript:void(0)">| responder</a>
+      </span>
+      <div class="hiddenDiv">
+        <%= form_for(@micropost, remote: true) do |f| %>
+          <% thing_id = Article.find(params[:id]).id %>
+          <div class="field">
+            <%= f.text_area :content, placeholder: "Escribe aquí tu respuesta..." %>
+          </div>
+          <%= f.hidden_field :thing, :value => '3' %>
+          <%= f.hidden_field :thing_id, :value => thing_id %>
+          <%= f.hidden_field :parent_post_id, :value => subfeedlev2_item.id %>
+           <%= f.hidden_field :parent_post_level, :value => '3' %>
+           <br/>
+           <%= f.submit "Publicar", class: "btn" %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
 </li>
+<% if Micropost.lev3_replied_comment_to(subfeedlev2_item).any? %>
+  <% @subfeedlev3_items = Micropost.lev3_replied_comment_to(subfeedlev2_item) %>
+  <ol class="submicroposts">
+    <%= render partial: 'shared/subfeedlev3_item', collection: @subfeedlev3_items %>
+  </ol>
+<% end %>

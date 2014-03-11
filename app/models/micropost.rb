@@ -65,6 +65,14 @@ class Micropost < ActiveRecord::Base
     where("parent_post_id = :micropost_id AND parent_post_level = '2'", micropost_id: micropost.id).order("created_at ASC")
   end
 
+  def self.lev3_replied_comment_to(micropost)
+    where("parent_post_id = :micropost_id AND parent_post_level = '3'", micropost_id: micropost.id).order("created_at ASC")
+  end
+
+  def self.lev4_replied_comment_to(micropost)
+    where("parent_post_id = :micropost_id AND parent_post_level = '4'", micropost_id: micropost.id).order("created_at ASC")
+  end
+
   def self.delete_replies(micropost_id)
     sql = "DELETE FROM microposts WHERE microposts.parent_post_id = #{micropost_id}"
     self.connection.execute(sql)
