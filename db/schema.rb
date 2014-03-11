@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140306164358) do
+ActiveRecord::Schema.define(:version => 20140311065119) do
 
   create_table "articleaddressees", :force => true do |t|
     t.integer "article_id"
@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(:version => 20140306164358) do
     t.text     "abstract"
     t.text     "content"
     t.integer  "user_id"
-    t.integer  "addressees"
+    t.string   "addressees"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
